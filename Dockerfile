@@ -19,6 +19,7 @@ RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/i
 
 # Installing fuse filesystem is not possible in docker without elevated priviliges
 # but we can fake installling it to allow packages we need to install for GNOME
+RUN apt-get update
 RUN apt-get install libfuse2 -y && \
 cd /tmp ; apt-get download fuse && \
 cd /tmp ; dpkg-deb -x fuse_* . && \
