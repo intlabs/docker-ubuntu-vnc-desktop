@@ -17,11 +17,24 @@ deb http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main\n\
 RUN apt-mark hold initscripts udev plymouth mountall
 RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/initctl
 
+# Installing fuse filesystem is not possible in docker without elevated priviliges
+# but we can fake installling it to allow packages we need to install for GNOME
+RUN apt-get install libfuse2 -y && \
+cd /tmp ; apt-get download fuse && \
+cd /tmp ; dpkg-deb -x fuse_* . && \
+cd /tmp ; dpkg-deb -e fuse_* && \
+cd /tmp ; rm fuse_*.deb && \
+cd /tmp ; echo -en '#!/bin/bash\nexit 0\n' > DEBIAN/postinst && \
+cd /tmp ; dpkg-deb -b . /fuse.deb && \
+cd /tmp ; dpkg -i /fuse.deb
+
+
+
 RUN apt-get update \
     && apt-get install -y --force-yes --no-install-recommends supervisor \
         openssh-server pwgen sudo vim-tiny \
         net-tools \
-        lxde x11vnc xvfb \
+        gnome-core x11vnc xvfb \
         gtk2-engines-murrine ttf-ubuntu-font-family \
         nodejs \
         libreoffice firefox \

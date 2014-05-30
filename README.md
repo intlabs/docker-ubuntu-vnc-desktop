@@ -14,7 +14,7 @@ docker build --rm -t doro/ubuntu-vnc-desktop docker-ubuntu-vnc-desktop
 
 Run
 ```
-docker run -i -t -p 6080:6080 doro/ubuntu-vnc-desktop
+docker run -i -t -p 6080:6080 cannycomputing/ubuntu-vnc-desktop
 ```
 
 Browse http://127.0.0.1:6080/vnc.html
