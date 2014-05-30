@@ -35,7 +35,7 @@ RUN apt-get update \
     && apt-get install -y --force-yes --no-install-recommends supervisor \
         openssh-server pwgen sudo vim-tiny \
         net-tools \
-        gnome-core x11vnc xvfb \
+        gnome x11vnc xvfb \
         gtk2-engines-murrine ttf-ubuntu-font-family \
         nodejs \
         libreoffice firefox \
