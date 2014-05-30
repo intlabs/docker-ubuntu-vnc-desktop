@@ -45,10 +45,10 @@ RUN apt-get update \
 
 ADD noVNC /noVNC/
 
+EXPOSE 22
 ADD startup.sh /
 ADD supervisord.conf /
 EXPOSE 6080
 EXPOSE 5900
-EXPOSE 22
 WORKDIR /
 ENTRYPOINT ["/startup.sh"]
